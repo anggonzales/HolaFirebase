@@ -5,14 +5,21 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHolder> {
+    TextView nombre;
     private LayoutInflater inflador;
     ArrayList<Producto> datos;
     Context micontext;
@@ -32,7 +39,7 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int i) {
-        holder.miid.setText(datos.get(i).getId());
+        holder.miid.setText("$" + datos.get(i).getPrecio());
         holder.nombreproducto.setText(datos.get(i).getNombre());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +49,14 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
                 intent.putExtra("nombreproducto", datos.get(i).getNombre());
             }
         });
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference reference = database.getReference("PRODUCTOS");
+                reference.child(datos.get(i).getId()).removeValue();
+            }
+        });
     }
 
     @Override
@@ -49,13 +64,16 @@ public class AdapterProducto extends RecyclerView.Adapter<AdapterProducto.ViewHo
         return datos.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView miid, nombreproducto;
+        public Button btnDelete;
 
         ViewHolder(View itemView) {
             super(itemView);
             miid = (TextView) itemView.findViewById(R.id.id_text);
             nombreproducto = (TextView) itemView.findViewById(R.id.nombre);
+            btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
         }
     }
 }
