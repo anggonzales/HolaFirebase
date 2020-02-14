@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     void AddItems() {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -132,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 recyclerView.getAdapter().notifyDataSetChanged();
-
             }
 
             @Override
