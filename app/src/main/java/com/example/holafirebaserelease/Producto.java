@@ -3,19 +3,19 @@ package com.example.holafirebaserelease;
 public class Producto {
     private String id;
     private String nombre;
-    private String precio;
+    private Double precio;
 
     public Producto() {
 
     }
 
-    public Producto(String id, String nombre, String precio) {
+    public Producto(String id, String nombre, Double precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
     }
 
-    public Producto(String nombre, String precio) {
+    public Producto(String nombre, Double precio) {
         this.nombre = nombre;
         this.precio = precio;
     }
@@ -36,11 +36,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 }
